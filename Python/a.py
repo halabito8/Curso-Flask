@@ -1,16 +1,5 @@
-def nuevo_decorador(func):
+from Paquete.Pqt_pral import func1
+from Paquete.sub_Paquete.sub_Pqt import func3
 
-    def wrap_func():
-        print ("Hola\nAntes de la func()")
-
-        func()
-
-        print ("Adios\nDespues func()")
-
-    return wrap_func
-
-@nuevo_decorador
-def necesita_decorador():
-    print ("Codigo dentro de func()")
-
-necesita_decorador()
+func1()
+func3()

@@ -1,0 +1,10 @@
+Python no necesita una funcion main para correr, con que este
+en el archivo es suficiente como para que corra. Python tiene variables
+internas, las cuales se identifican con doble guion bajo antes y despues del nombre
+(__init__ o __repr__), en muchos archivo vamos a ver las siguientes lineas:
+
+if __name__ == "__main__":
+    func()
+
+Con esta linea se puede saber desde donde se esta corriendo el script
+desde el mismo archivo o desde un tercero.
