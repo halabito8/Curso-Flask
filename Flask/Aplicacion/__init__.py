@@ -15,6 +15,5 @@ from Aplicacion.models import *
 from Aplicacion.core.views import core
 from Aplicacion.usuarios.views import usuarios
 
-# Register the apps
 app.register_blueprint(core)
 app.register_blueprint(usuarios, url_prefix='/usuarios')
