@@ -7,7 +7,9 @@
 {% block content %}
   En esta pagina encontraras las bases de como hacer un aplicacion con flask
   <ul>
-    <li> <a href="#">Rutas, modo debug y request</a> </li>
+    <li> <a href="{{ url_for('bases.venv') }}">Virtual environment</a> </li>
+    <li> <a href="{{ url_for('bases.rutas') }}">Rutas</a> </li>
+    <li> <a href="#">Modo debug y request</a> </li>
     <li> <a href="#">WTForms</a> </li>
     <li> <a href="#">SQLAlchemy</a> </li>
     <li> <a href="#">Flask-login</a> </li>

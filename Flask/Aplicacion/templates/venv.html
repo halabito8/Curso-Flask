@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+  <title>Virtual enviroments</title>
+{% endblock styles %}
+
+{% block content %}
+  <h2>Virtual environments y Pip</h2>
+  <hr>
+  <h4>Pip</h4>
+  <p>Pip es el manejador de paquetes en python.</p>
+    <br> 
+    Para instalarlo en Ubuntu:
+    <pre>
+
+      $ sudo easy_install pip
+      $ sudo pip install --upgrade pip
+    </pre>
+    Para instalarlo en MacOS:
+    <pre>
+
+      $ sudo easy_install pip
+      $ sudo pip install --upgrade pip
+    </pre>
+    Para instalarlo en Windows:
+    <pre>
+
+      $ python get-pip.py
+    </pre>  
+    <p>
+      Al igual que python a veces se corre como python o python3, igual pip o pip3.
+    </p>
+    <hr>
+    <h4>Virtual environment</h4>
+    <p>
+      Ya que tenemos pip vamos a crear un virtual environment, estos nos sirven para que los paquetes que instalemos de pip 
+      esten separados, muchas veces vamos a tener dos paginas con librerias diferentes  y no queremos que unas esten instaladas 
+      en la otra pagina. Primero en la terminal se tiene que estar en el directorio donde la aplicacion va a estar.</p>
+      <br>
+      Para crear un nuevo enviroment:
+      <pre>
+        $ python3 -m venv nombre-del-env
+      </pre>
+      Para crear activarlo en Linux y MacOS:
+      <pre>
+        $ source nombre-del-env/bin/acivate
+      </pre>
+      Para crear activarlo en Windows:
+      <pre>
+        $ \env\Scripts\activate.bat
+      </pre>
+  <a class="float-right" href="{{ url_for('bases.rutas', nombre='david') }}">Siguiente Pagina: Rutas</a>
+{% endblock content %}
