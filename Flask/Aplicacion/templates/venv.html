@@ -49,5 +49,33 @@
       <pre>
         $ \env\Scripts\activate.bat
       </pre>
+      <p>
+        Ahora para crear la primera aplicacion de Flask, instalamos Flask (con el venv activado):
+      </p>
+      <pre>
+        $ pip install flask
+      </pre>
+      <p>
+        Creamos un archivo llamado app.py que contenga lo siguiente:
+      </p>
+      <pre class="language-python">
+        <code>
+          from flask import Flask
+
+          app = Flask(__name__)
+  
+          @app.route('/')
+          def index():
+              return "Hola mundo"
+  
+          if "__name__" == __main__:
+              app.run()</code>
+      </pre>
+      <p>
+        Para correrlo:
+      </p>
+      <pre>
+        python app.py
+      </pre>
   <a class="float-right" href="{{ url_for('bases.rutas', nombre='nombre') }}">Siguiente Pagina: Rutas</a>
 {% endblock content %}

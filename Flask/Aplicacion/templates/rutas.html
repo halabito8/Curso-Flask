@@ -5,5 +5,76 @@
 {% endblock styles %}
 
 {% block content %}
-  hola {{ nombre }}
+  <p>
+    Las rutas en flask se manejan con el decorador .route(), estas como minimo deben de llevar un argumento con una barra ('/').
+    Estas nos ayudan a definir lo que va a ir en el navegador, todas las rutas al principio deben de llevar la barra, como ahorita el codigo esta pagina es:
+  </p>
+  <pre>
+    <code>
+      @app.route('/rutas')
+        def rutas():
+            ...
+            return
+    </code>
+  </pre>
+  <p>
+    Por lo que el navegador tendra el.dominio.com/usuario/nombre
+  </p>
+  <p>
+    Tambien se le pueden asignar varias rutas a la misma funcion, simplemente estackiando los decoradores:
+  </p>
+  <pre>
+    <code>
+      @app.route('/')
+      @app.route('/home')
+      @app.route('/index')
+      def index():
+          return ...
+    </code>
+  </pre>
+  <p>
+    Ya sea a que entres a el.dominio.com/, el.dominio.com/home o el.dominio.com/index, todas van a referirse a la misma pagina.
+  </p>
+  <p>
+    El segundo argumento que se le puede especificar al decorador de la ruta es los metodos que puede recibir, por default puede recibir GET pero
+    si queremos que reciba otros y ademas GET, este tambien lo tenemos que especificar:
+  </p>
+  <pre>
+    <code>
+      @app.route('/bases', methods=['GET','POST','PUT'])
+    </code>
+  </pre>
+  <p>
+    Ahora esa ruta puede aceptar GET, POST y PUT.
+  </p>
+  <p>
+    Ademas podemos tener rutas dinamicas, tenemos que especificarle a la ruta cuantos argumentos
+    y que tipo, de la siguiente manera:
+  </p>
+  <pre>
+    <code>
+      @app.route('/rutas/<<x>string:nombre>')
+        def rutas(nombre):
+            ...
+            return
+    </code>
+  </pre>
+  <p>
+    De esta manera le estamos pasando nombre como argumento a la funcion, 
+    modifica la ruta de arriba por otra cosa que no sea nombre y veras como funciona:
+  </p>
+  {% if nombre != 'nombre' %}
+    <h4>La variable de la ruta es {{ nombre }}</h4>
+  {% endif %}
+  <p>
+    Se pueden pasar mas de dos argumentos y estos poor lo general se hace entre /, de la siguiente manera:
+  </p>
+  <pre>
+    <code>
+      @app.route('/bases/<<x>string:nombre>/<<x>int:dia>')
+        def rutas(nombre, dia):
+            ...
+            return
+    </code>
+  </pre>
 {% endblock content %}
