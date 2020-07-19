@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+  <title>Debug</title>
+{% endblock styles %}
+
+{% block content %}
+  <h2>Debug</h2>
+  <p>
+    Con lo que se ha visto si la aplicacion llega a tener un error en estos momentos no sabriamos cual es,
+    ya que si hay algun error solo muestra una pagina en blanco o incluso si hacemos algun cambio probablemente la pagina no se va actualizar.
+    Para lograr esto hay que activar el modo debug poniendo el modo debug en true cuando la corremos (este cambio se hace en el archivo app.py):
+  </p>
+  <pre>
+    <code>
+      if __name__ == "__main__":
+          app.run(debug=True)
+    </code>
+  </pre>
+  <p>
+    De esta manera cuando haya un error nos debera aparecer una pagina como esta:
+  </p>
+  <pre>
+    <img src="{{ url_for('static', filename='img/error.png') }}" alt="Ejemplo error" width="1180" height="700">
+  </pre>
+  <p>
+    Por ejemplo en la imagen de arriba nos dice que el archivo debu.html no se encontro, si seguimos scroleando para abajo podemos encontrar la linea
+    exacta en la cual esta el error.
+  </p>
+  <p>
+    Tambien podemos acceder a una pequeña terminal desde la pagina de error clickeando en la terminal hasta la
+    derecha de la linea que queremos modificar.
+  </p>
+  <pre>
+    <img src="{{ url_for('static', filename='img/error1.png') }}" alt="Ejemplo error" width="1180" height="700">
+  </pre>
+  <p>
+    Despues nos va a pedir un pin de debugger
+  </p>
+  <pre>
+    <img src="{{ url_for('static', filename='img/error2.png') }}" alt="Ejemplo error" width="500" height="300">
+  </pre>
+  <p>
+    Este pin esta en la terminal
+  </p>
+  <pre>
+    <img src="{{ url_for('static', filename='img/error3.png') }}" alt="Ejemplo error" width="800" height="250">
+  </pre>
+  <p>
+    Lo ponemos y ya podemos modificar lineas de codigo dentro de la pagina de error.
+  </p>
+  <pre>
+    <img src="{{ url_for('static', filename='img/error4.png') }}" alt="Ejemplo error" width="800" height="250">
+  </pre>
+  <p>
+    Cualquier cambio que se hagan NO SE VA A VER REFLEJADO EN NUESTRA APLICACION, cuando acabenmos de debugear
+    tendremos que cambiar nuestro archivo para que funcione bien.
+  </p>
+  <a class="float-right" href="{{ url_for('bases.blueprints') }}">Siguiente Pagina: Blueprint</a>
+{% endblock content %}

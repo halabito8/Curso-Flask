@@ -9,3 +9,11 @@ def venv():
 @bases.route('/rutas/<string:nombre>')
 def rutas(nombre):
     return render_template('rutas.html', nombre=nombre)
+
+@bases.route('/debug')
+def debug():
+    return render_template('debug.html')
+
+@bases.route('/blueprints')
+def blueprints():
+    return render_template('blueprints.html')

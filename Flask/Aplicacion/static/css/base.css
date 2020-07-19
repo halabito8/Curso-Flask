@@ -9,12 +9,21 @@ pre{
     background-color: rgb(204, 204, 204);
 }
 
+body{
+    background-color: rgb(211, 211, 211);
+}
+
+@media(min-width: 576px){
+    .contenido{
+        padding: 30px;
+        max-width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 .contenido{
     background-color: white;
-    padding: 30px;
-    max-width: 70%;
-    margin-left: auto;
-    margin-right: auto;
     margin-top: 2px;
     margin-bottom: 70px;
 }

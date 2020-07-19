@@ -5,6 +5,8 @@
 {% endblock styles %}
 
 {% block content %}
+  <h2>Rutas</h2>
+  <h4>Primer argumento</h4>
   <p>
     Las rutas en flask se manejan con el decorador .route(), estas como minimo deben de llevar un argumento con una barra ('/').
     Estas nos ayudan a definir lo que va a ir en el navegador, todas las rutas al principio deben de llevar la barra, como ahorita el codigo esta pagina es:
@@ -18,10 +20,10 @@
     </code>
   </pre>
   <p>
-    Por lo que el navegador tendra el.dominio.com/usuario/nombre
+    Por lo que el navegador tendra el.dominio.com/rutas
   </p>
   <p>
-    Tambien se le pueden asignar varias rutas a la misma funcion, simplemente estackiando los decoradores:
+    Tambien se le pueden asignar varias rutas a la misma funcion, simplemente acumulando decoradores:
   </p>
   <pre>
     <code>
@@ -35,6 +37,7 @@
   <p>
     Ya sea a que entres a el.dominio.com/, el.dominio.com/home o el.dominio.com/index, todas van a referirse a la misma pagina.
   </p>
+  <h4>Segundo argumento</h4>
   <p>
     El segundo argumento que se le puede especificar al decorador de la ruta es los metodos que puede recibir, por default puede recibir GET pero
     si queremos que reciba otros y ademas GET, este tambien lo tenemos que especificar:
@@ -47,9 +50,10 @@
   <p>
     Ahora esa ruta puede aceptar GET, POST y PUT.
   </p>
+  <h4>Rutas dinamicas</h4>
   <p>
     Ademas podemos tener rutas dinamicas, tenemos que especificarle a la ruta cuantos argumentos
-    y que tipo, de la siguiente manera:
+    y que tipo, ademas que la funcion debe de recibir los parametros, de la siguiente manera:
   </p>
   <pre>
     <code>
@@ -67,7 +71,7 @@
     <h4>La variable de la ruta es {{ nombre }}</h4>
   {% endif %}
   <p>
-    Se pueden pasar mas de dos argumentos y estos poor lo general se hace entre /, de la siguiente manera:
+    Se pueden pasar mas de dos argumentos y estos por lo general se hace entre /, de la siguiente manera:
   </p>
   <pre>
     <code>
@@ -77,4 +81,5 @@
             return
     </code>
   </pre>
+  <a class="float-right" href="{{ url_for('bases.debug') }}">Siguiente Pagina: Debug</a>
 {% endblock content %}
