@@ -15,7 +15,10 @@ from Aplicacion.models import *
 from Aplicacion.core.views import core
 from Aplicacion.usuarios.views import usuarios
 from Aplicacion.bases.views import bases
+from Aplicacion.formas.views import formas
+
 
 app.register_blueprint(core)
 app.register_blueprint(bases)
 app.register_blueprint(usuarios, url_prefix='/usuarios')
+app.register_blueprint(formas)

@@ -111,10 +111,41 @@
     organizar todas las vistas de los usuarios. Dentro de views.py vamos a escribir lo siguiente:
   </p>
   <pre>
+    Dentro de aplicacion\aplicacion\usuarios\views.py
     <code>
       from flask import Blueprint
 
+      # Por lo general la instancia y el nombre del blueprint es el mismo para que no haya confusion
       usuarios = Blueprint('usuarios', __name__)
+
+      # Como ya no estamos en un solo archivo las rutas se definen con el blueprint
+      @usuarios.route('/')
+      def usuario():
+          return "En usuarios"
+    </code>
+    <h5>Ya que creamos el blueprint lo tenemos que registrar en __init__.py de la aplicacion</h5>
+    Dentro de aplicacion\aplicacion\__init__.py
+    <code>
+      from flask import Flask
+
+      app = Flask(__name__)
+
+      # Este import se hace aqui ya que primero se debe de crear la aplicacion y luego se instancia el blueprint
+      from aplicacion.usuarios.views import usuarios
+
+      app.register_blueprint(usuarios)
     </code>
   </pre>
+  <p>
+    Tambien se le puede definir un prefijo que vaya en todas las paginas del blueprint, 
+    todo el codigo es igual nada mas que en la instancia se define el prefijo:
+  </p>
+  <pre>
+    <code>
+      admin = Blueprint('admin', __name__, url_prefix='/admin')
+    </code>
+  </pre>
+  <p>
+    De esta manera cualquier pagina que se agregue en este blueprint sera el.dominio.com/admin/nombre-ruta
+  </p>
 {% endblock content %}
