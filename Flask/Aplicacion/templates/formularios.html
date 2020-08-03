@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+  <title>WTForms</title>
+{% endblock styles %}
+
+{% block content %}
+  <h2>WTForms</h2>
+  <p>
+    WTForms nos ayuda a llevar un mejor orden y manejo en nuestras formularios,
+    tambien nos dan seguridad con CSRF token.
+  </p>
+  <p>
+    Primero hay que instalar flask-wtf.
+  </p>
+  <pre>
+    <code>
+      pip install flask-wtf
+    </code>
+  </pre>
+  <p>
+    Las formularios (forms.py) se van a crear en un archivo separado, en el mismo nivel
+    que el archivo views.py, de esta manera vamos a poder tener un mejor
+    control de nuestras formularios.
+  </p>
+  <pre>
+    <img src="{{ url_for('static', filename='img/formas1.png') }}" alt="formularios1">
+  </pre>
+  <p>
+    Dentro de forms.py va a estar lo siguiente:
+  </p>
+  <pre>
+    <code>
+      # Dentro de forms.py
+      from flask_wtf import FlaskForm
+      from wtforms import StringField, SubmitField
+
+      class Prueba(FlaskForm):
+          # El primer argumento en el field es la etiqueta que va a tener.
+          nombre = StringField('Nombre')
+          submit = SubmitField('Ok')
+    </code>
+    En views.py vamos a importar el formulario y lo se vamos a pasar de argumento al html
+    <code>
+      # Dentro de views.py
+      from flask import Blueprint, render_template
+      from Aplicacion.formularios.forms import Prueba
+
+      formularios = Blueprint('formularios', __name__)
+
+      @formularios.route('/formularios')
+      def formulario():
+          form = Prueba()
+          return render_template('formularios.html', form=form)
+    </code>
+    Para imprimirlo en pantalla se imprime como variables de Jinja
+    <code>
+      {% raw %}
+        {{ form.usuario.label }}: {{ form.usuario() }}
+        {{ form.submit }}
+      {% endraw %}
+    </code>
+    Esto nos va a dar como resultado:
+    {{ form.usuario.label }}: {{ form.usuario() }}
+    {{ form.submit }}
+  </pre>
+  <p>
+    Ademas de StringField existen varios mas como:
+  </p>
+  <ul>
+    <li>IntegerField: Solo va a aceptar numeros enteros</li>
+    <li>PasswordField: Campo para contraseña</li>
+    <li>BooleanField: Checkbox</li>
+    <li>DecimalField: Acepta float</li>
+    <li>FileField: Acepta archivos</li>
+  </ul>
+  <p>
+    Ademas se le puede poner validadores desde el formulario, como tambien desplegar un mensaje.
+  </p>
+  <pre>
+    <code>
+      Dentro de forms.py
+      from flask_wtf import FlaskForm
+      from wtforms import StringField, SubmitField
+      from wtforms.validators import DataRequired
+
+      class Prueba(FlaskForm):
+          # El primer argumento en el field es la etiqueta que va a tener.
+          nombre = StringField('Nombre', validators=[DataRequired(message="nombre requerido")])
+          submit = SubmitField('Ok')
+    </code>
+    Trata de enviar este formulario sin cololcar nada en nombre.
+    <form action="" method="POST" novalidate>
+      {{ form.hidden_tag() }}
+      {{ form.nombre.label }}: {{ form.nombre() }}
+      {% for error in form.nombre.errors %}
+      <ul>
+        <li>{{ error }}</li>
+      </ul>
+      {% endfor %}
+      {{ form.submit }}
+    </form>
+  </pre>
+  <a href="https://flask-wtf.readthedocs.io/en/stable/" target="_blank">Documentacion de flask-wtf</a>
+{% endblock content %}
