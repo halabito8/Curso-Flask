@@ -56,6 +56,9 @@
     Para imprimirlo en pantalla se imprime como variables de Jinja
     <code>
       {% raw %}
+        {{ form.hidden_tag() }} <-- Esta etiqueta siempre tiene que estar presente, si no esta 
+                                el form no se va a mandar, asiq ue asegurate de siempre tenerla -->
+
         {{ form.usuario.label }}: {{ form.usuario() }}
         {{ form.submit }}
       {% endraw %}
@@ -75,7 +78,8 @@
     <li>FileField: Acepta archivos</li>
   </ul>
   <p>
-    Ademas se le puede poner validadores desde el formulario, como tambien desplegar un mensaje.
+    Ademas se le puede poner validadores desde el formulario, como tambien desplegar un mensaje. Para que el validador
+    de flask funcione correctamente en el tag de form cuando se abra hay que colocarle novalidate.
   </p>
   <pre>
     <code>
@@ -89,6 +93,21 @@
           nombre = StringField('Nombre', validators=[DataRequired(message="nombre requerido")])
           submit = SubmitField('Ok')
     </code>
+    <code>
+      Dentro de html
+      {% raw %}
+      &ltform action="" method="POST" novalidate&gt
+      {{ form.hidden_tag() }}
+      {{ form.nombre.label }}: {{ form.nombre() }}
+      {% for error in form.nombre.errors %}
+      &ltul&gt
+        &ltli&gt{{ error }}&lt/li&gt
+      &lt/ul&gt
+      {% endfor %}
+      {{ form.submit }}
+      &lt/form&gt
+      {% endraw %}
+    </code>
     Trata de enviar este formulario sin cololcar nada en nombre.
     <form action="" method="POST" novalidate>
       {{ form.hidden_tag() }}
@@ -98,8 +117,66 @@
         <li>{{ error }}</li>
       </ul>
       {% endfor %}
-      {{ form.submit }}icons
+      {{ form.submit }}
     </form>
+  </pre>
+  <p>
+    A los campos se les puede asignar diferentes widgets de html desde WTForms.
+  </p>
+  <pre>
+    <code>
+      from wtforms.widgets import TextArea
+      from wtforms.widgets.html5 import NumberInput
+
+      # Cada clase va a ser un formulario, tiene herencia de FlaskForm
+      class Prueba(FlaskForm):
+          usuario = StringField('Usuario')
+          nombre = StringField('Nombre', validators=[DataRequired(message="nombre requerido")])
+          descripcion = StringField('Descripcion', widget=TextArea())
+          cantidad = DecimalField('Cantidad', widget=NumberInput())
+          submit = SubmitField('Ok')
+    </code>
+  </pre>
+  <p>
+    Para agregarle clases, id, etc a las labels o a los campos se le agrega el tag en los parentesis de WTForms en el html.
+    De esta manera podemos editar el estilo desde un css.
+  </p>
+  <pre>
+    <code>
+      {% raw %}
+        {{ form.hidden_tag() }} 
+        {{ form.usuario.label(class="etiquetas") }}: {{ form.usuario(class="caja") }}
+        {{ form.submit }}
+      {% endraw %}
+    </code>
+  </pre>
+  <p>
+    Para validacion si en el tag de form no agregamos nada en action cuando se envie el formulario se evaluara en la misma
+    funcion y aunque agreguemos otra ruta para verificar se hace de la misma manera en flask.
+  </p>
+  <pre>
+    <code>
+      {% raw %}
+      &ltform action="{{ url_for("usuarios.register") }}" method="POST" novalidate&gt
+        {{ form.hidden_tag() }} 
+        {{ form.usuario.label(class="etiquetas") }}: {{ form.usuario(class="caja") }}
+        {{ form.submit }}
+        &lt/form&gt
+      {% endraw %}
+    </code>
+    Este form se va a evaluar dentro de usuarios/views.py en la funcion de register.
+    <code>
+      # Dentro de usuarios/views.py
+
+      @usuarios.route('/regsiter', methods=['GET', 'POST'])
+      def register():
+          if request.method == "POST" and form.validate_on_submit():
+          # Es importante hacer las dos validaciones, la primera si el form fue mandado por POST
+          # La segunda hace las validaciones que especificamos en forms.py
+            Codigo y verifcaciones
+            # Si todo sale bien lo redirijo a login
+            return redirect(url_for('usuario.login'))
+    </code>
   </pre>
   <a href="https://flask-wtf.readthedocs.io/en/stable/" target="_blank">Documentacion de flask-wtf</a>
 {% endblock content %}
